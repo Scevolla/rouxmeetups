@@ -1,3 +1,7 @@
+global.rootRequire = function(name) {
+    return require(__dirname + '/' + name);
+}
+
 var express = require('express');
 var app = express();
 var dataFile = require('./data/data.json');
@@ -13,6 +17,8 @@ app.locals.allSpeakers = dataFile.speakers;
 app.use(express.static('app/public'));
 app.use(require('./routes/index'));
 app.use(require('./routes/speakers'));
+app.use(require('./routes/feedback'));
+app.use(require('./routes/api'));
 
 var server = app.listen(app.get('port'), function() {
   console.log('Listening on port ' + app.get('port'));
